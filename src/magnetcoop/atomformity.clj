@@ -1,4 +1,4 @@
-(ns io.rkn.atomformity
+(ns magnetcoop.atomformity
   (:require [datomic.api :refer [q db] :as d]
             [clojure.java.io :as io]
             [clojure.spec.alpha :as s]))

@@ -1,6 +1,6 @@
-(ns io.rkn.atomformity-test
+(ns magnetcoop.atomformity-test
   (:require [clojure.test :refer :all]
-            [io.rkn.atomformity :refer :all]
+            [magnetcoop.atomformity :refer :all]
             [datomic.api :refer [q db] :as d]
             [migrations.txes :refer [test3]]))
 
