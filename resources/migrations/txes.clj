@@ -3,11 +3,11 @@
 
 (defn attr
   [prefix ident]
-  [{:db/id (d/tempid :db.part/db)
-    :db/ident (keyword prefix ident)
-    :db/valueType :db.type/string
-    :db/cardinality :db.cardinality/one
-    :db.install/_attribute :db.part/db}])
+  {:db/id (d/tempid :db.part/db)
+   :db/ident (keyword prefix ident)
+   :db/valueType :db.type/string
+   :db/cardinality :db.cardinality/one
+   :db.install/_attribute :db.part/db})
 
 (defn txes-foo [conn]
   (vector (vec
