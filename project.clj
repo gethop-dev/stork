@@ -1,4 +1,4 @@
-(defproject io.rkn/atomformity "0.1.0"
+(defproject magnetcoop/atomformity "0.1.0"
   :description "Idempotent and atomic datom transacting for Datomic. Heavily inspired on rkneufeld/conformity."
   :url "http://github.com/magnetcoop/atomformity"
   :license {:name "Eclipse Public License"
