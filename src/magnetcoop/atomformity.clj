@@ -121,10 +121,10 @@
   "Reduces norms from a norm-map specified by a seq of norm-names into
   a transaction result accumulator"
   [conn {:keys [id] :as norm-map}]
-  (let [sync-schema-timeout (:conformity.setting/sync-schema-timeout norm-map)
-        {:keys [tx-data]} (get-norm conn norm-map)]
-    (if (conforms-to? (db conn) id)
-      :already-conformed
+  (if (conforms-to? (db conn) id)
+    :already-conformed
+    (let [sync-schema-timeout (:conformity.setting/sync-schema-timeout norm-map)
+          {:keys [tx-data]} (get-norm conn norm-map)]
       (handle-tx-data conn id tx-data sync-schema-timeout))))
 
 (defn tx-data-xor-tx-data-fn? [{:keys [tx-data tx-data-fn]}]
