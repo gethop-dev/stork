@@ -1,6 +1,7 @@
 (ns io.rkn.atomformity
   (:require [datomic.api :refer [q db] :as d]
-            [clojure.java.io :as io]))
+            [clojure.java.io :as io]
+            [clojure.spec.alpha :as s]))
 
 (def default-conformity-attribute :conformity/conformed-norms)
 (def conformity-ensure-norm-tx :conformity/ensure-norm-tx)
@@ -67,10 +68,10 @@
      norm-id  - the keyword name of the norm you want to check"
   [db norm-id]
   (and (has-attribute? db default-conformity-attribute)
-       (q '[:find ?tx .
-            :in $ ?na ?nv
-            :where [?tx ?na ?nv]]
-          db default-conformity-attribute norm-id)))
+       (boolean (q '[:find ?tx .
+                     :in $ ?na ?nv
+                     :where [?tx ?na ?nv]]
+                   db default-conformity-attribute norm-id))))
 
 (defn maybe-timeout-synch-schema [conn maybe-timeout]
   (if maybe-timeout
@@ -101,7 +102,7 @@
     (cond-> norm-map
             tx-data-fn (merge (eval-tx-data-fn conn tx-data-fn)))))
 
-(defn handle-tx-data [conn norm-id tx-data ex sync-schema-timeout]
+(defn handle-tx-data [conn norm-id tx-data sync-schema-timeout]
   (try
     (let [safe-tx [conformity-ensure-norm-tx
                    default-conformity-attribute
@@ -121,10 +122,18 @@
   a transaction result accumulator"
   [conn {:keys [id] :as norm-map}]
   (let [sync-schema-timeout (:conformity.setting/sync-schema-timeout norm-map)
-        {:keys [tx-data ex]} (get-norm conn norm-map)]
+        {:keys [tx-data]} (get-norm conn norm-map)]
     (if (conforms-to? (db conn) id)
       :already-conformed
-      (handle-tx-data conn id tx-data ex sync-schema-timeout))))
+      (handle-tx-data conn id tx-data sync-schema-timeout))))
+
+(defn tx-data-xor-tx-data-fn? [{:keys [tx-data tx-data-fn]}]
+  (or (and tx-data (not tx-data-fn))
+      (and tx-data-fn (not tx-data))))
+
+(s/def ::norm (s/and (s/keys :req-un [::id]
+                             :opt-un [::tx-data ::tx-data-fn])
+                     tx-data-xor-tx-data-fn?))
 
 (defn ensure-conforms
   "Ensure that norms represented as datoms are conformed-to (installed), be they
@@ -143,6 +152,7 @@
 
   On failure, throws an ex-info with a reason and data about any partial
   success before the failure."
-  [conn norm-map]
+  [conn norm]
+  {:pre [(s/valid? ::norm norm)]}
   (ensure-conformity-schema conn)
-  (handle-norm conn norm-map))
+  (handle-norm conn norm))

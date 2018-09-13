@@ -2,19 +2,18 @@
   (:require [datomic.api :as d]))
 
 (defn attr
-  [prefix ident]
-  {:db/id (d/tempid :db.part/db)
-   :db/ident (keyword prefix ident)
-   :db/valueType :db.type/string
-   :db/cardinality :db.cardinality/one
-   :db.install/_attribute :db.part/db})
+  ([ident]
+   (attr ident :db.type/string))
+  ([ident value-type]
+   {:db/id (d/tempid :db.part/db)
+    :db/ident ident
+    :db/valueType value-type
+    :db/cardinality :db.cardinality/one
+    :db.install/_attribute :db.part/db}))
 
-(defn txes-foo [conn]
-  (vector (vec
-           (mapcat (partial attr "txes-fn")
-                   ["foo-1" "foo-2"]))))
+(defn test3 [_]
+  [(attr :test3/attribute2)])
 
-(defn txes-bar [conn]
-  (vector (vec
-           (mapcat (partial attr "txes-fn")
-                   ["bar-1" "bar-2"]))) )
+(defn populate-meaning-of-life [_]
+  [{:db/id (d/tempid :db.part/user)
+    :life/meaning 42}])
