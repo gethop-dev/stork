@@ -6,7 +6,10 @@ It consumes migrations defined by explicit id and a transaction data (explicit o
 
 ## Dependency
 
-Coming soon...
+Stork is available on clojars, and can be included in your leiningen `project.clj` by adding the following to `:dependencies`:
+
+[![Clojars Project](https://clojars.org/magnetcoop/stork/latest-version.svg)](https://clojars.org/magnetcoop/stork)
+
 
 ## Usage
 
