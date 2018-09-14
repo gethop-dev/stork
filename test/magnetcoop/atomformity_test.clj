@@ -43,7 +43,7 @@
       (is (has-attribute? (db conn) :test/attribute1))
       (is (has-attribute? (db conn) :test/attribute2))
       (is (not (has-attribute? (db conn) :test/attribute3)))
-      (is (= (ensure-conforms conn sample-norm) :already-conformed))))
+      (is (= (ensure-conforms conn sample-norm) :magnetcoop.atomformity/already-conformed))))
 
   (testing "throws exception if norm lacks vital parameters"
     (let [conn (fresh-conn)]
