@@ -54,7 +54,7 @@
       (is (thrown? java.lang.AssertionError
                    (ensure-installed conn {:id :m006/creatures-that-live-on-dry-land}))))
 
-    (testing "throws exception if norm contains both tx-data and tx-data-fn"
+    (testing "throws exception if migration contains both tx-data and tx-data-fn"
       (let [conn (fresh-conn)]
         (is (thrown? java.lang.AssertionError
                      (ensure-installed conn {:id :m006/creatures-that-live-on-dry-land
@@ -101,9 +101,9 @@
 
 (deftest test-loads-migration-from-resource
   (testing "loads a datomic schema from edn in a resource"
-    (let [norm (read-resource "001-alter-schema.edn")
+    (let [migration (read-resource "001-alter-schema.edn")
           conn (fresh-conn)]
-      (is (ensure-installed conn norm))
+      (is (ensure-installed conn migration))
       (is (installed? (db conn) :m001/alter-schema))
       @(d/transact conn
                    [{:db/id (d/tempid :db.part/user)
