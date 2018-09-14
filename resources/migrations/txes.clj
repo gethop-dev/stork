@@ -11,8 +11,8 @@
     :db/cardinality :db.cardinality/one
     :db.install/_attribute :db.part/db}))
 
-(defn test3 [_]
-  [(attr :test3/attribute2)])
+(defn new-attr [_]
+  [(attr :test/attribute)])
 
 (defn populate-meaning-of-life [_]
   [{:db/id (d/tempid :db.part/user)
