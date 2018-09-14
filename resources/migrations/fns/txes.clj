@@ -1,4 +1,4 @@
-(ns migrations.txes
+(ns migrations.fns.txes
   (:require [datomic.api :as d]))
 
 (defn attr

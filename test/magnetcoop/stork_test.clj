@@ -2,7 +2,7 @@
   (:require [clojure.test :refer :all]
             [magnetcoop.stork :refer :all]
             [datomic.api :refer [q db] :as d]
-            [migrations.txes :refer [new-attr]]))
+            [migrations.fns.txes :refer [new-attr]]))
 
 (def uri  "datomic:mem://test")
 (defn fresh-conn []
@@ -50,7 +50,7 @@
       (is (thrown? java.lang.AssertionError
                    (ensure-installed conn {:tx-data [(attr :animal/species)]})))
       (is (thrown? java.lang.AssertionError
-                   (ensure-installed conn {:tx-data-fn 'migrations.txes/new-attr})))
+                   (ensure-installed conn {:tx-data-fn 'migrations.fns.txes/new-attr})))
       (is (thrown? java.lang.AssertionError
                    (ensure-installed conn {:id :m006/creatures-that-live-on-dry-land}))))
 
@@ -59,7 +59,7 @@
         (is (thrown? java.lang.AssertionError
                      (ensure-installed conn {:id :m006/creatures-that-live-on-dry-land
                                              :tx-data [(attr :animal/species)]
-                                             :tx-data-fn 'migrations.txes/new-attr})))))))
+                                             :tx-data-fn 'migrations.fns.txes/new-attr})))))))
 
 (deftest test-migration-installed-to?
   (testing "returns truthy if migration is already installed"
@@ -101,7 +101,7 @@
 
 (deftest test-loads-migration-from-resource
   (testing "loads a datomic schema from edn in a resource"
-    (let [migration (read-resource "001-alter-schema.edn")
+    (let [migration (read-resource "migrations/001-alter-schema.edn")
           conn (fresh-conn)]
       (is (ensure-installed conn migration))
       (is (installed? (db conn) :m001/alter-schema))
@@ -114,8 +114,8 @@
                                  (db conn))]
         (is (= meaning-of-life 42)))))
   (testing "derive tx-data from from txes-fn reference in a resource"
-    (let [alter-schema-migration (read-resource "001-alter-schema.edn")
-          populate-data-migration (read-resource "002-populate.edn")
+    (let [alter-schema-migration (read-resource "migrations/001-alter-schema.edn")
+          populate-data-migration (read-resource "migrations/002-populate.edn")
           conn (fresh-conn)]
       (ensure-installed conn alter-schema-migration)
       (ensure-installed conn populate-data-migration)

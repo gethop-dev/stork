@@ -1,2 +1,0 @@
-{:id :m002/populate-meaning-of-life
- :tx-data-fn migrations.txes/populate-meaning-of-life}
