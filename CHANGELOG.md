@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file. This change
 ## Added
 
 - Travis CI integration
+- Automatic deployments to Clojars
 
 [Unreleased]: https://github.com/magnetcoop/stork/compare/0.1.1...HEAD
 [0.1.1]: https://github.com/magnetcoop/stork/compare/0.1.0...0.1.1

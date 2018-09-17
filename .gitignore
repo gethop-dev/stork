@@ -14,3 +14,4 @@ pom.xml
 .lein-plugins
 dev
 stork.iml
+pom.xml.asc

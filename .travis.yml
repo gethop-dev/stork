@@ -1,3 +1,20 @@
 language: clojure
+
+env:
+  global:
+    # Encrypted CLOJARS_USERNAME for Clojars deployment
+    - secure: "rf/z6xC4V3JK8yI3brdgSBOT8t941i3O9tvndLaSWpCffUJq7dEancJIO4gwka8JsJ25ErVsJ/jDFN3CGXQlxZKXL/a3yxtujt2yHCrhfM0Mi1I4tb5aTkoLutUe84hmUPElndE3I8gpMhrs15CkymEI4cUFEsRZgz93t7xevHR4IcJ7frJwT7RIDiIP5PfSnPcXTMePdaGH0VzBfvji3q5uicCm/detXoQ+27AxI0i4qYRoKdlmeHhvckE7pw6Ri1QBqP8bCxtQ7dc8u1JusXcpVGht0Zxu5JjtDvA53LgqFd23dUOqmqN/Ap4lVscxImmPsqUUL50KkVF6Ro9GqtKox4UwdsvagK/Zj3dfT56BP5sNDsCyt5EQg715jNOWia6qQBwQHnVTZIkerC2oOrY0fyrsPBctM8Rn4N4KVv6PHa9OfbqaFn4h1C8H4NnHmO3ZJt52fdRbPdT5T5OduujAIpi8gSvus4odFvIBTcktqQQJKIR/EtFKtB9qkQoMRMhhTXwwNbGX56NvNPnGKANlR6QKwkpeNKH4u1ZmMmHKgmHbYyoN8rxtrvVYT/9LmMetWtN0ZwlFBZjqSOhbmWr55U1eqHzU8aG9nbWXkCSIxv4XdIvSL4ApHHd3Bk39rKtbILtOU9VTDop29rqlhAi3kJ4auTlVtYnm1Lbek1s="
+    # Encrypted CLOJARS_PASSWORD for Clojars deployment
+    - secure: "ikcPFJpzbYMkBfIGBWcw6qL4MsK6Vq5NSf7skVKo115TpBto32HJYNsRACSAF/OQeql6XTssN63K7dFp6JuR9QZOo7RCRu9IzojxR2w6FSv0iguvV80MiKwa6K7ar+I7L/OCPjRFgIup7zh3gYmbVx2thZ+EEdfQV1uGMR+h583h76UwkiHiJXkUnxR9ebW3fK3RXZ/dkHQefvI0wiSe/6E5J0wUSPkjXIVMpg3Ah7htDmlOf1BvWSDccnm2OBqyBAa4WGrldymWGaUHBSxcZZX6IvQwokeezYn+dSLtNAn42iaa/WoBhNqwthUQ1pDFKYH1qnUBS4lDBiU1RBtFkBq/oaijjeQuZvEYIXfr1foNHD7YgUDILWMmG3V5YK/RBO0sex4yDj806w+6ZHXoI1dL8fENjR9+ZBvqv6F5J7HceI6cAP369Q4FOHZc7LAGCHmUe/69/gXTVusrcSNuC7CqEKha0MyTJ9vo8TznKgF+SzkSdXHtTkT/dpQXzz93MKeqxjH38YRfN2m86nNQ5K1ADfjgBkPxd06Fhs7IEY6g+LYONv2w706hZlIL9PflOJgKwwxjPRIWwlnqxhpD7IX7hOsxx/LGmKz75DSjVYjscfWsLzlVRiFS0z6lYP3MqgThHtrMTkFESFpQk36r/uTycGhSFomH4I26fBnlkIQ="
+
 script:
 - lein test
+
+deploy:
+  # Deploy binaries to Clojars
+  - provider: script
+    skip_cleanup: true
+    script: lein deploy
+    on:
+      branch: master
+      jdk: oraclejdk8
