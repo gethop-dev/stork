@@ -10,7 +10,9 @@
                    :source-paths ["dev"]}}
   :deploy-repositories [["snapshots" {:url "https://clojars.org/repo"
                                       :username :env/clojars_username
-                                      :password :env/clojars_password}]
+                                      :password :env/clojars_password
+                                      :sign-releases false}]
                         ["releases"  {:url "https://clojars.org/repo"
                                       :username :env/clojars_username
-                                      :password :env/clojars_password}]])
+                                      :password :env/clojars_password
+                                      :sign-releases false}]])
