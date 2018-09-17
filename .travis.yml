@@ -7,4 +7,4 @@ deploy:
   # Deploy binaries to Clojars
   - provider: script
     skip_cleanup: true
-    script: sh ./foo.sh
+    script: lein deploy
