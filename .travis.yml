@@ -12,5 +12,10 @@ env:
     # Encrypted clojars_password for Clojars deployment
     - secure: "dMUXslxkJrtZRpYK0etpM6zq1AddBf+DETX0bIXD0KXjFfpgJQbTOgL/m6mzn/urG5rOMVVqv+iwWd/1aXhneNvd4/R5R26jLesJ5QWD8iFnz56gys1Z3MruqXyT9bSAacxA6EkFPoBp0GgQeGNxg2U3n8V8LJk7DcVoC8k9b+PaGA706TQvSofAaFxFrgxT9y2QWg3vXC78koFmV+Vs7UmNDNaQXHCM+gCGNNNZyGm+8nztYPlK39yh1WQs5e+KBZoO281AxmQXOTr9SE3U6L/d14QPdhYogesy8bmXcm1sAQyUrx0KR5Mm7N0LX3cPbW0/jdYQBTAxsXGt1r8zOzb/LKZK/H9bRnb31KPDypk9a1hNKaw3p2EoYkELvagJZaEz7P7BWEjZww+RrKR97TM+dHOVn/KlIOrpMRjSj22W44PkBVffdLk+kggu69sos5XydNeAoFBdiaa7U9+jbB6w4krW4WFNZ5KzzJaiPQwVSon6QZJ9vXpgbQOJFzseusw0Pn0r7BDQBod3J8TRFSRMB2g+M9ERkpkeXRpp323QJ7MVc6+5nJnrLeqt4oNB4H4nOP4gsUEV6ZtON1BKQ7uysTq4yO4tt4RGJMAZHyoqQZ7ocROuZkPP/u+VNDjs1fayCXCKnzxo8r9Ax5M/m4H6k4X1aXeag5K0ilud5yk="
 
-script:
-- lein do test, deploy
+script: lein test
+
+deploy:
+  # Deploy binaries to Clojars
+  - provider: script
+    skip_cleanup: true
+    script: lein deploy
