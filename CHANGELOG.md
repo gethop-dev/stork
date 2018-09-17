@@ -1,6 +1,12 @@
 # Change Log
 All notable changes to this project will be documented in this file. This change log follows the conventions of [keepachangelog.com](http://keepachangelog.com/).
 
+## [0.1.5] - 2018-09-17
+
+## Added
+
+- Before running tests, sourcecode will also be Linted.
+
 ## [0.1.4] - 2018-09-17
 
 ## Fixed
