@@ -1,4 +1,4 @@
-(defproject magnetcoop/stork "0.1.2"
+(defproject magnetcoop/stork "0.1.3"
   :description "Idempotent and atomic datom transacting for Datomic. Heavily inspired on rkneufeld/conformity."
   :url "http://github.com/magnetcoop/stork"
   :license {:name "Eclipse Public License"
