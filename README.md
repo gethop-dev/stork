@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/magnetcoop/stork.svg?branch=master)](https://travis-ci.org/magnetcoop/stork)
+
 # Stork
 
 A Clojure/Datomic migrations library heavily inspired by [rkneufeld/conformity](https://github.com/rkneufeld/conformity).
@@ -7,8 +9,6 @@ It consumes migrations defined by explicit id and a transaction data (explicit o
 ## Dependency
 
 Stork is available on clojars, and can be included in your leiningen `project.clj` by adding the following to `:dependencies`:
-
-[![Build Status](https://travis-ci.org/magnetcoop/stork.svg?branch=master)](https://travis-ci.org/magnetcoop/stork)
 
 [![Clojars Project](https://clojars.org/magnetcoop/stork/latest-version.svg)](https://clojars.org/magnetcoop/stork)
 
