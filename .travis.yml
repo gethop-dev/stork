@@ -7,4 +7,4 @@ deploy:
   # Deploy binaries to Clojars
   - provider: script
     skip_cleanup: true
-    script: foo.sh
+    script: sh ./foo.sh
