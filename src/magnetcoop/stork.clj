@@ -12,16 +12,17 @@
 (def ensure-migration-should-be-installed
   "Transaction function to ensure that each migration is executed exactly only
   when a migration-id isn't known to had been installed in past."
-  #db/fn {:lang :clojure
-          :params [db inst-migs-attr migration-id tx-data]
-          :code (when-not (seq (q '[:find ?tx
-                                    :in $ ?installed-migrations-attribute ?migration-id
-                                    :where
-                                    [?tx ?installed-migrations-attribute ?migration-id]]
-                                  db inst-migs-attr migration-id))
-                  (cons {:db/id (d/tempid :db.part/tx)
-                         inst-migs-attr migration-id}
-                        tx-data))})
+  (d/function
+    '{:lang :clojure
+      :params [db inst-migs-attr migration-id tx-data]
+      :code (when-not (seq (q '[:find ?tx
+                                :in $ ?installed-migrations-attribute ?migration-id
+                                :where
+                                [?tx ?installed-migrations-attribute ?migration-id]]
+                              db inst-migs-attr migration-id))
+              (cons {:db/id (d/tempid :db.part/tx)
+                     inst-migs-attr migration-id}
+                    tx-data))}))
 
 (defn read-resource
   "Reads and returns data from a resource containing edn text.
