@@ -33,7 +33,7 @@ If your migration is going to have an explicit transaction data then all you nee
             :db.install/_attribute :db.part/db}]}
 ```
 
-If transaction data necessary for your transaction needs to be calculated first, then you want to use `:tx-data-fn` instead of `:tx-data`:
+If transaction data necessary for your transaction needs to be calculated first, then you want to use `:tx-data-fn` instead of `:tx-data`. This function accepts one argument - Datomic connection:
 ```clojure
 ;; resources/migrations/001-add-prefix-to-phone-numbers
 {:id :m002/add-prefix-to-phone-numbers
