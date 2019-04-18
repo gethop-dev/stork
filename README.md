@@ -33,7 +33,7 @@ If your migration is going to have an explicit transaction data then all you nee
             :db.install/_attribute :db.part/db}]}
 ```
 
-If transaction data necessary for your transaction needs to be calculated first, then you want to use `:tx-data-fn` instead of `:tx-data`. This function accepts one argument - Datomic connection:
+If transaction data necessary for your transaction needs to be calculated first, then you want to use `:tx-data-fn` instead of `:tx-data`. `:tx-data-fn` must be the fully qualified name of the function to invoke. And you need to make sure that the namespace for that function can be found in the application classpath. This function accepts one argument - a Datomic connection:
 ```clojure
 ;; resources/migrations/001-add-prefix-to-phone-numbers
 {:id :m002/add-prefix-to-phone-numbers
@@ -41,7 +41,12 @@ If transaction data necessary for your transaction needs to be calculated first,
 ```
 
 ```clojure
-;; resources/migrations/fns/m001.clj
+;; resources/migrations/fns/m002.clj
+(ns migrations.fns.m002
+  (:require [datomic.api :as d]))
+
+...
+
 (defn add-prefix-to-phone-numbers [conn]
   (mapv
     (fn [[u-eid phone]]
