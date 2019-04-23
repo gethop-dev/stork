@@ -14,16 +14,16 @@
   "Transaction function to ensure that each migration is executed exactly only
   when a migration-id isn't known to had been installed in past."
   (d/function
-    '{:lang :clojure
-      :params [db inst-migs-attr migration-id tx-data]
-      :code (when-not (seq (q '[:find ?tx
-                                :in $ ?installed-migrations-attribute ?migration-id
-                                :where
-                                [?tx ?installed-migrations-attribute ?migration-id]]
-                              db inst-migs-attr migration-id))
-              (cons {:db/id (d/tempid :db.part/tx)
-                     inst-migs-attr migration-id}
-                    tx-data))}))
+   '{:lang :clojure
+     :params [db inst-migs-attr migration-id tx-data]
+     :code (when-not (seq (q '[:find ?tx
+                               :in $ ?installed-migrations-attribute ?migration-id
+                               :where
+                               [?tx ?installed-migrations-attribute ?migration-id]]
+                             db inst-migs-attr migration-id))
+             (cons {:db/id (d/tempid :db.part/tx)
+                    inst-migs-attr migration-id}
+                   tx-data))}))
 
 (defn read-resource
   "Reads and returns data from a resource containing edn text.
@@ -82,8 +82,8 @@
     (let [result (deref (d/sync-schema conn (d/basis-t (d/db conn))) maybe-timeout ::timed-out)]
       (if (= result ::timed-out)
         (throw (ex-info
-                 "Timed out calling synch-schema between Stork transactions"
-                 {:timeout maybe-timeout}))
+                "Timed out calling synch-schema between Stork transactions"
+                {:timeout maybe-timeout}))
         result))
     @(d/sync-schema conn (d/basis-t (d/db conn)))))
 
@@ -91,10 +91,13 @@
   "Tries to resolve the symbol that contains the function.
   It's evaluation should result in a valid tx-data."
   [conn tx-data-fn]
-  (try (require (symbol (namespace tx-data-fn)))
-       {:tx-data ((resolve tx-data-fn) conn)}
-       (catch Throwable t
-         {:ex (str "Exception evaluating " tx-data-fn ": " t)})))
+  (try
+    (require (symbol (namespace tx-data-fn)))
+    {:tx-data ((resolve tx-data-fn) conn)}
+    (catch Throwable t
+      (let [reason (.getMessage t)
+            data {:reason reason}]
+        (throw (ex-info reason data t))))))
 
 (defn complement-migration
   "If migration contains tx-data, function returns migration unchanged.
@@ -103,7 +106,7 @@
   [conn migration]
   (let [tx-data-fn (:tx-data-fn migration)]
     (cond-> migration
-            tx-data-fn (merge (eval-tx-data-fn conn tx-data-fn)))))
+      tx-data-fn (merge (eval-tx-data-fn conn tx-data-fn)))))
 
 (defn handle-tx-data
   "Tries to transact tx-data using custom :stork/:stork/ensure-migration-should-be-installed."

@@ -54,12 +54,12 @@
       (is (thrown? java.lang.AssertionError
                    (ensure-installed conn {:id :m006/creatures-that-live-on-dry-land})))))
 
-    (testing "throws exception if migration contains both tx-data and tx-data-fn"
-      (let [conn (fresh-conn)]
-        (is (thrown? java.lang.AssertionError
-                     (ensure-installed conn {:id :m006/creatures-that-live-on-dry-land
-                                             :tx-data [(attr :animal/species)]
-                                             :tx-data-fn 'migrations.fns.txes/new-attr})))))))
+  (testing "throws exception if migration contains both tx-data and tx-data-fn"
+    (let [conn (fresh-conn)]
+      (is (thrown? java.lang.AssertionError
+                   (ensure-installed conn {:id :m006/creatures-that-live-on-dry-land
+                                           :tx-data [(attr :animal/species)]
+                                           :tx-data-fn 'migrations.fns.txes/new-attr})))))
 
   (testing "throws exception if migration cannot be transacted"
     (let [conn (fresh-conn)]
@@ -82,8 +82,8 @@
     (testing "installed-migrations-attribute does not exist"
       (let [conn (fresh-conn)]
         (is (and
-              (false? (has-attribute? (db conn) installed-migrations-attribute))
-              (false? (installed? (db conn) :m001/new-attributes))))))))
+             (false? (has-attribute? (db conn) installed-migrations-attribute))
+             (false? (installed? (db conn) :m001/new-attributes))))))))
 
 (deftest test-ensure-stork-schema
   (testing "it adds the stork schema if it is absent"
