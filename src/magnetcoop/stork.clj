@@ -130,8 +130,7 @@
   (if (installed? (db conn) id)
     ::already-installed
     (let [sync-schema-timeout (:stork.setting/sync-schema-timeout migration)
-          ;; TODO handle resolution exceptions
-          {:keys [tx-data ex]} (complement-migration conn migration)]
+          {:keys [tx-data]} (complement-migration conn migration)]
       (handle-tx-data conn id tx-data sync-schema-timeout))))
 
 (defn tx-data-xor-tx-data-fn?
@@ -159,7 +158,8 @@
                    The function will be ran with one argument - conn.
 
   If migration hasn't been installed before then function will return with a transaction result.
-  It will return `::already-installed` otherwise."
+  It will return `::already-installed` otherwise.
+  Throws ExceptionInfo if the migration cant be transacted, including details about the failure."
   [conn migration]
   {:pre [(s/valid? ::migration migration)]}
   (ensure-stork-schema conn)

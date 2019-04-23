@@ -17,3 +17,6 @@
 (defn populate-meaning-of-life [_]
   [{:db/id (d/tempid :db.part/user)
     :life/meaning 42}])
+
+(defn txfn-no-args []
+  [(attr :test/txfn-no-args)])

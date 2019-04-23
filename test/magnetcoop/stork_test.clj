@@ -52,7 +52,7 @@
       (is (thrown? java.lang.AssertionError
                    (ensure-installed conn {:tx-data-fn 'migrations.fns.txes/new-attr})))
       (is (thrown? java.lang.AssertionError
-                   (ensure-installed conn {:id :m006/creatures-that-live-on-dry-land}))))
+                   (ensure-installed conn {:id :m006/creatures-that-live-on-dry-land})))))
 
     (testing "throws exception if migration contains both tx-data and tx-data-fn"
       (let [conn (fresh-conn)]
@@ -60,6 +60,12 @@
                      (ensure-installed conn {:id :m006/creatures-that-live-on-dry-land
                                              :tx-data [(attr :animal/species)]
                                              :tx-data-fn 'migrations.fns.txes/new-attr})))))))
+
+  (testing "throws exception if migration cannot be transacted"
+    (let [conn (fresh-conn)]
+      (is (thrown? clojure.lang.ExceptionInfo
+                   (ensure-installed conn {:id :m002/txfn-cannot-be-executed
+                                           :tx-data-fn 'migrations.fns.txes/txfn-no-args}))))))
 
 (deftest test-migration-installed-to?
   (testing "returns truthy if migration is already installed"

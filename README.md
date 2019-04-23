@@ -64,6 +64,8 @@ If transaction data necessary for your transaction needs to be calculated first,
   (stork/ensure-installed conn))
 ```
 
+If there is any problem trying to apply a migration, `stork/ensure-installed` throws ExceptionInfo (and adds relevant details to the exception data map).
+
 ### To know whether a norm has been installed (e.g. for logging purposes):
 
 ```clojure
