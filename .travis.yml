@@ -1,7 +1,7 @@
 language: clojure
 lein: 2.8.1
 
-script: lein do eastwood, test
+script: lein do cljfmt check, eastwood, test
 
 deploy:
   # Deploy binaries to Clojars
