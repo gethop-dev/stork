@@ -1,5 +1,6 @@
 (ns magnetcoop.stork
   (:require [datomic.api :refer [q db] :as d]
+            [clojure.edn :as edn]
             [clojure.java.io :as io]
             [clojure.spec.alpha :as s]))
 
@@ -33,7 +34,7 @@
    (->> (io/resource resource-name)
         (io/reader)
         (java.io.PushbackReader.)
-        (clojure.edn/read opts))))
+        (edn/read opts))))
 
 (defn has-attribute?
   "Checks if an attribute is installed into db schema."
