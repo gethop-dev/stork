@@ -76,6 +76,6 @@ If there is any problem trying to apply a migration, `stork/ensure-installed` th
 ```
 ## License
 
-Copyright (c) 2018, 2019 Magnet S Coop.
+Copyright (c) 2022 HOP Technologies
 
 Distributed under the Eclipse Public License, the same as Clojure.
