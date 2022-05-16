@@ -1,4 +1,4 @@
-(defproject dev.gethop/stork "0.1.6"
+(defproject dev.gethop/stork "0.1.7"
   :description "Idempotent and atomic datom transacting for Datomic. Heavily inspired on rkneufeld/conformity."
   :url "http://github.com/gethop-dev/stork"
   :license {:name "Eclipse Public License"
