@@ -1,8 +1,10 @@
-(ns magnetcoop.stork-test
+(ns dev.gethop.stork-test
   (:require [clojure.test :refer :all]
-            [magnetcoop.stork :refer :all]
             [datomic.api :refer [q db] :as d]
-            [migrations.fns.txes :refer [new-attr]]))
+            [dev.gethop.stork :refer [has-attribute? has-function? installed?
+                                      read-resource ensure-installed ensure-migration-tx
+                                      ensure-stork-schema installed-migrations-attribute]]
+            [migrations.fns.txes :refer [new-attr txfn-no-args]]))
 
 (def uri  "datomic:mem://test")
 (defn fresh-conn []
@@ -43,14 +45,14 @@
       (is (has-attribute? (db conn) :test/attribute1))
       (is (has-attribute? (db conn) :test/attribute2))
       (is (not (has-attribute? (db conn) :test/attribute3)))
-      (is (= (ensure-installed conn sample-migration) :magnetcoop.stork/already-installed))))
+      (is (= (ensure-installed conn sample-migration) :dev.gethop.stork/already-installed))))
 
   (testing "throws exception if migration lacks vital parameters"
     (let [conn (fresh-conn)]
       (is (thrown? java.lang.AssertionError
                    (ensure-installed conn {:tx-data [(attr :animal/species)]})))
       (is (thrown? java.lang.AssertionError
-                   (ensure-installed conn {:tx-data-fn 'migrations.fns.txes/new-attr})))
+                   (ensure-installed conn {:tx-data-fn new-attr})))
       (is (thrown? java.lang.AssertionError
                    (ensure-installed conn {:id :m006/creatures-that-live-on-dry-land})))))
 
@@ -59,13 +61,13 @@
       (is (thrown? java.lang.AssertionError
                    (ensure-installed conn {:id :m006/creatures-that-live-on-dry-land
                                            :tx-data [(attr :animal/species)]
-                                           :tx-data-fn 'migrations.fns.txes/new-attr})))))
+                                           :tx-data-fn new-attr})))))
 
   (testing "throws exception if migration cannot be transacted"
     (let [conn (fresh-conn)]
       (is (thrown? clojure.lang.ExceptionInfo
                    (ensure-installed conn {:id :m002/txfn-cannot-be-executed
-                                           :tx-data-fn 'migrations.fns.txes/txfn-no-args}))))))
+                                           :tx-data-fn txfn-no-args}))))))
 
 (deftest test-migration-installed-to?
   (testing "returns truthy if migration is already installed"

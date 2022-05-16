@@ -57,7 +57,7 @@ If transaction data necessary for your transaction needs to be calculated first,
 ### Running a migration:
 
 ```clojure
-(require '[magnetcoop.stork :as stork])
+(require '[dev.gethop.stork :as stork])
 
 (->>
   (stork/read-resource "migrations/001-alter-schema.edn")

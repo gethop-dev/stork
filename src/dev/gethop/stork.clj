@@ -1,8 +1,8 @@
-(ns magnetcoop.stork
-  (:require [datomic.api :refer [q db] :as d]
-            [clojure.edn :as edn]
+(ns dev.gethop.stork
+  (:require [clojure.edn :as edn]
             [clojure.java.io :as io]
-            [clojure.spec.alpha :as s]))
+            [clojure.spec.alpha :as s]
+            [datomic.api :refer [q db] :as d]))
 
 (def installed-migrations-attribute :stork/installed-migrations)
 (def ensure-migration-tx

@@ -12,6 +12,5 @@ pom.xml
 .lein-deps-sum
 .lein-failures
 .lein-plugins
-dev
 stork.iml
 pom.xml.asc
