@@ -1,4 +1,5 @@
 [![ci-cd](https://github.com/gethop-dev/stork/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/gethop-dev/stork/actions/workflows/ci-cd.yml)
+[![Clojars Project](https://img.shields.io/clojars/v/dev.gethop/stork.svg)](https://clojars.org/dev.gethop/stork)
 
 # Stork
 
@@ -10,7 +11,7 @@ It consumes migrations defined by explicit id and a transaction data (explicit o
 
 Stork is available on clojars, and can be included in your leiningen `project.clj` by adding the following to `:dependencies`:
 
-[![Clojars Project](https://clojars.org/dev.gethop/stork/latest-version.svg)](https://clojars.org/dev.gethop/stork)
+[![Clojars Project](https://clojars.org/dev.gethop/stork/latest-version.svg)](https://clojars.org/gethop-dev/stork)
 
 
 ## Usage

@@ -1,6 +1,8 @@
 # Change Log
 All notable changes to this project will be documented in this file. This change log follows the conventions of [keepachangelog.com](http://keepachangelog.com/).
 
+## [UNRELEASED]
+
 ## [0.1.7] - 2022-05-16
 
 ## Added
@@ -29,5 +31,5 @@ Changing that to `d/function` did the trick.
 - Travis CI integration
 - Automatic deployments to Clojars
 
-[Unreleased]: https://github.com/gethop-dev/stork/compare/0.1.3...HEAD
-[0.1.3]: https://github.com/gethop-dev/stork/compare/0.1.0...0.1.3
+[UNRELEASED]: https://github.com/gethop-dev/stork/compare/0.1.7...HEAD
+[0.1.7]: https://github.com/gethop-dev/stork/releases/tag/v0.1.7
