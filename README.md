@@ -3,7 +3,7 @@
 
 # Stork
 
-A Clojure/Datomic migrations library heavily inspired by [rkneufeld/conformity](https://github.com/rkneufeld/conformity).
+A Clojure/Datomic migrations library heavily inspired by [avescodes/conformity](https://github.com/avescodes/conformity).
 
 It consumes migrations defined by explicit id and a transaction data (explicit or evaluated from function) and transacts the data once and only once.
 
